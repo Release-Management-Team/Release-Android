@@ -14,10 +14,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.sogang.release.ui.theme.Primary1
-import com.sogang.release.ui.theme.Gray1
-import com.sogang.release.ui.theme.Black1
-
+import androidx.compose.material3.Text
+import com.sogang.release.ui.theme.AppThemeColors
+import com.sogang.release.ui.theme.AppTypography
 import androidx.compose.ui.res.painterResource
 
 @Composable
@@ -27,7 +26,7 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Black1)
+            .background(AppThemeColors.black1)
     ) {
         Column(
             modifier = Modifier
@@ -67,8 +66,8 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
 
             Text(
                 text = "행복한 하루 🧑🏻‍💻\n오늘도 버그 없는 개발 되세요!",
-                style = MaterialTheme.typography.displayMedium,
-                color = Gray1,
+                style = AppTypography.heading3,
+                color = AppThemeColors.gray1,
                 textAlign = TextAlign.Start,
                 modifier = Modifier.fillMaxWidth()
             )
@@ -77,8 +76,8 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
 
             Text(
                 text = "Notice",
-                style = MaterialTheme.typography.titleLarge,
-                color = Primary1,
+                style = AppTypography.heading3,
+                color = AppThemeColors.primary1,
                 modifier = Modifier.fillMaxWidth()
             )
 
@@ -87,14 +86,14 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Primary1, shape = RoundedCornerShape(16.dp))
+                    .background(AppThemeColors.primary1, shape = RoundedCornerShape(16.dp))
                     .height(70.dp),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
                     text = if (noticeData.isNotEmpty()) noticeData else "공지사항이 없습니다.",
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = Black1
+                    style = AppTypography.paragraph1,
+                    color = AppThemeColors.black1
                 )
             }
 
@@ -102,8 +101,8 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
 
             Text(
                 text = "Weekly Events",
-                style = MaterialTheme.typography.titleLarge,
-                color = Gray1,
+                style = AppTypography.heading3,
+                color = AppThemeColors.gray1,
                 modifier = Modifier.fillMaxWidth()
             )
         }

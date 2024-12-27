@@ -21,7 +21,7 @@ private val CommonColorScheme = lightColorScheme(
 fun ReleaseTheme(content: @Composable () -> Unit) {
     MaterialTheme(
         colorScheme = CommonColorScheme,
-        typography = Typography,
+        typography = AppTypography.material,
         shapes = Shapes,
         content = content
     )
