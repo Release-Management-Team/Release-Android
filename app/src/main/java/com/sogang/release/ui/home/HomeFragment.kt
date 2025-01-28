@@ -9,18 +9,20 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.material3.Text
+
 import com.sogang.release.ui.theme.AppThemeColors
 import com.sogang.release.ui.theme.AppTypography
 import androidx.compose.ui.res.painterResource
+import androidx.navigation.NavHostController
 
 @Composable
-fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
+fun HomeScreen(
+    navController: NavHostController,
+    viewModel: HomeViewModel = viewModel()) {
     val noticeData by viewModel.noticeData.collectAsState(initial = "")
 
     Box(
@@ -50,7 +52,9 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
                 )
 
                 IconButton(
-                    onClick = { },
+                    onClick = {
+                        navController.navigate("notificationsScreen")
+                    },
                     modifier = Modifier.size(32.dp)
                 ) {
                     Icon(
@@ -91,7 +95,7 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = if (noticeData.isNotEmpty()) noticeData else "공지사항이 없습니다.",
+                    text = if (noticeData.isNotEmpty()) noticeData else "",
                     style = AppTypography.paragraph1,
                     color = AppThemeColors.black1
                 )
