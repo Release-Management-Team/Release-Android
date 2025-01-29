@@ -38,6 +38,7 @@ fun AppTheme(
         primary1 = Primary1,
         primary2 = Primary2,
         primary3 = Primary3,
+        primary4 = Primary4,
         gray1 = Gray1,
         gray2 = Gray2,
         gray3 = Gray3,

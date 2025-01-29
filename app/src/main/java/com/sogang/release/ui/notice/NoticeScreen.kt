@@ -14,8 +14,7 @@ import com.sogang.release.ui.theme.AppThemeColors
 
 @Composable
 fun NoticeScreen(viewModel: NoticeViewModel = viewModel()) {
-    val noticeData: List<NoticeDTO>
-    noticeData = viewModel.noticeData
+    val noticeData = viewModel.noticeData
 
     Column(
         modifier = Modifier

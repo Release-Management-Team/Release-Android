@@ -1,3 +1,15 @@
+import java.io.FileInputStream
+import java.util.Properties
+
+val localProperties = rootProject.file("local.properties")
+val properties = Properties().apply {
+    load(FileInputStream(localProperties))
+}
+val baseUrl: String = properties.getProperty("BASE_URL")
+
+
+println("BASE_URL from local.properties: $baseUrl")
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
@@ -12,7 +24,7 @@ android {
         minSdk = 30
         targetSdk = 34
         versionCode = 1
-        versionName = "1.0"
+        versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -20,8 +32,18 @@ android {
         }
     }
 
+    // BuildConfig 사용 가능하도록 설정
+    buildFeatures {
+        buildConfig = true
+    }
+
     buildTypes {
+        debug {
+            buildConfigField("String", "BASE_URL", "\"$baseUrl\"")
+        }
         release {
+            buildConfigField("String", "BASE_URL", "\"$baseUrl\"")
+
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -88,4 +110,9 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
+    implementation("com.airbnb.android:lottie-compose:6.1.0")
 }

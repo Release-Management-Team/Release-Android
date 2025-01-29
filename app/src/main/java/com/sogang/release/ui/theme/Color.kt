@@ -7,6 +7,7 @@ import androidx.compose.ui.graphics.Color
 val Primary1 = Color(0xFFF6C015)
 val Primary2 = Color(0xFF685722)
 val Primary3 = Color(0xFFFFE38B)
+val Primary4 = Color(0xFFFF5353)
 
 val Gray1 = Color(0xFFFFFFFF)
 val Gray2 = Color(0xFFEEEEEE)
@@ -22,6 +23,7 @@ data class AppColors(
     val primary1: Color,
     val primary2: Color,
     val primary3: Color,
+    val primary4: Color,
     val gray1: Color,
     val gray2: Color,
     val gray3: Color,
@@ -37,6 +39,7 @@ val LocalAppColors = staticCompositionLocalOf {
         primary1 = Primary1,
         primary2 = Primary2,
         primary3 = Primary3,
+        primary4 = Primary4,
         gray1 = Gray1,
         gray2 = Gray2,
         gray3 = Gray3,
@@ -52,6 +55,7 @@ object AppThemeColors {
     val primary1: Color @Composable get() = LocalAppColors.current.primary1
     val primary2: Color @Composable get() = LocalAppColors.current.primary2
     val primary3: Color @Composable get() = LocalAppColors.current.primary3
+    val primary4: Color @Composable get() = LocalAppColors.current.primary4
     val gray1: Color @Composable get() = LocalAppColors.current.gray1
     val gray2: Color @Composable get() = LocalAppColors.current.gray2
     val gray3: Color @Composable get() = LocalAppColors.current.gray3
