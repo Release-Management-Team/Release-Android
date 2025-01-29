@@ -8,20 +8,17 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import com.sogang.release.ui.theme.*
 
 @Composable
-fun MyPageScreen(viewModel: MyPageViewModel = viewModel()) {
-    val profileData by viewModel.profileData.collectAsState()
-
-    LaunchedEffect(Unit) {
-//        viewModel.fetchProfileData()
-    }
+fun MyPageScreen(
+    navController: NavHostController,
+    viewModel: MyPageViewModel = viewModel()) {
+    val profileData = viewModel.profileData
 
     Box(
         modifier = Modifier
@@ -44,7 +41,7 @@ fun MyPageScreen(viewModel: MyPageViewModel = viewModel()) {
 
             Spacer(modifier = Modifier.height(56.dp))
 
-            ChangeInfoSection()
+//            ChangeInfoSection(navController)
         }
     }
 }
@@ -74,7 +71,6 @@ fun ProfileSection(profile: ProfileDTO) {
                     .fillMaxWidth()
                     .align(Alignment.Center)
             ) {
-
                 Spacer(modifier = Modifier.height(50.dp))
 
                 Column {
@@ -100,8 +96,14 @@ fun ProfileSection(profile: ProfileDTO) {
                     InfoRow(title = "학번", content = profile.id)
                     InfoRow(title = "학과", content = profile.department)
                     InfoRow(
-                        title = "가입기간",
-                        content = "${profile.joinedSemester} ~ ${if (profile.state == 0) "NOW" else "END"}"
+                        title = when (profile.state) {
+                            0, 1 -> "가입기간"
+                            else -> "활동기간"
+                        },
+                        content = when (profile.state) {
+                            0, 1 -> "${profile.joined_semester} ~ NOW"
+                            else -> "${profile.joined_semester} ~ END"
+                        }
                     )
                     InfoRow(title = "이메일", content = profile.email)
                     InfoRow(title = "전화번호", content = formatPhoneNumber(profile.phone))
@@ -110,7 +112,6 @@ fun ProfileSection(profile: ProfileDTO) {
         }
 
         Row {
-
             Spacer(modifier = Modifier.width(8.dp))
 
             Box(
@@ -150,7 +151,7 @@ fun formatPhoneNumber(phone: String): String {
 }
 
 @Composable
-fun ChangeInfoSection() {
+fun ChangeInfoSection(navController: NavHostController) {
     Column {
         Text(
             text = "정보 수정",
@@ -161,7 +162,9 @@ fun ChangeInfoSection() {
         Spacer(modifier = Modifier.height(8.dp))
 
         Button(
-            onClick = { },
+            onClick = {
+                navController.navigate("changePasswordScreen")
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Black2, shape = RoundedCornerShape(16.dp))

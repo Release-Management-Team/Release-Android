@@ -7,6 +7,7 @@ object UserPreferences {
     private const val PREF_NAME = "release_prefs"
     private const val KEY_ACCESS_TOKEN = "access_token"
     private const val KEY_REFRESH_TOKEN = "refresh_token"
+    private const val PASSWORD_KEY = "password"
 
     private var prefs: SharedPreferences? = null
 
@@ -42,5 +43,23 @@ object UserPreferences {
     fun clearTokens() {
         prefs?.edit()?.clear()?.apply()
             ?: throw IllegalStateException("UserPreferences is not initialized")
+    }
+
+    fun getPassword(): String? {
+        return prefs?.getString(PASSWORD_KEY, null)
+            ?: throw IllegalStateException("UserPreferences is not initialized")
+    }
+
+    fun savePassword(password: String) {
+        if (password == "") {
+            throw IllegalArgumentException("Password must not be null or empty")
+        }
+
+        val sharedPreferences = prefs ?: throw IllegalStateException("UserPreferences is not initialized")
+
+        sharedPreferences.edit().apply {
+            putString(PASSWORD_KEY, password)
+            apply()
+        }
     }
 }

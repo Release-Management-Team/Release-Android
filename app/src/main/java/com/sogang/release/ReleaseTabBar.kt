@@ -30,6 +30,7 @@ import com.sogang.release.ui.activity.ActivityScreen
 import com.sogang.release.ui.activityDetail.ActivityDetailScreen
 import com.sogang.release.ui.book.BookScreen
 import com.sogang.release.ui.notice.NoticeScreen
+import com.sogang.release.ui.changePassword.ChangePasswordScreen
 
 import com.sogang.release.ui.theme.AppThemeColors
 import com.sogang.release.ui.theme.AppTypography
@@ -47,11 +48,13 @@ fun ReleaseTabBar() {
         val shouldShowTabBar = when (currentRoute?.destination?.route) {
             "notificationsScreen" -> false
             "activityDetailScreen" -> false
+            "changePasswordScreen" -> false
             else -> true
         }
 
         val shouldShowTopBar = when (currentRoute?.destination?.route) {
             "notificationsScreen" -> true
+            "changePasswordScreen" -> true
             else -> false
         }
 
@@ -59,6 +62,7 @@ fun ReleaseTabBar() {
             if (shouldShowTopBar) {
                 val title = when (currentRoute?.destination?.route) {
                     "notificationsScreen" -> "공지"
+                    "changePasswordScreen" -> "비밀번호 변경"
                     else -> ""
                 }
 
@@ -106,7 +110,7 @@ fun ReleaseTabBar() {
                         }
                     }
                     composable(ReleaseTabBarItem.Book.route) { BookScreen() }
-                    composable(ReleaseTabBarItem.MyPage.route) { MyPageScreen() }
+                    composable(ReleaseTabBarItem.MyPage.route) { MyPageScreen(navController) }
                     composable("notificationsScreen") { NoticeScreen() }
                     composable("activityDetailScreen") {
                         val selectedActivity =
@@ -118,6 +122,7 @@ fun ReleaseTabBar() {
                             )
                         }
                     }
+                    composable("changePasswordScreen") { ChangePasswordScreen(navController) }
                 }
             }
 

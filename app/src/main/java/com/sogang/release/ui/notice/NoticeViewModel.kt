@@ -21,7 +21,6 @@ data class NoticeDTO(
 
 class NoticeViewModel : ViewModel() {
 
-    // 공지 데이터 리스트
     var noticeData by mutableStateOf<List<NoticeDTO>>(emptyList())
         private set
 

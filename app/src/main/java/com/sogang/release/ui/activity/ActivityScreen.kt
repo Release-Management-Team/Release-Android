@@ -12,9 +12,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.sogang.release.ui.theme.AppThemeColors
 import com.sogang.release.ui.theme.AppTypography
 
-import com.sogang.release.ui.activity.ActivityViewModel
-import com.sogang.release.ui.activity.ActivityTab
-
 @Composable
 fun ActivityScreen(viewModel: ActivityViewModel = viewModel(),
                    onActivitySelected: (ActivityDTO) -> Unit) {

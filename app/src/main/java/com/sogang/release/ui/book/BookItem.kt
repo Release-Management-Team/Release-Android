@@ -87,7 +87,6 @@ fun BookItem(book: BookDTO) {
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                // Title
                 Text(
                     text = book.title,
                     style = AppTypography.heading4,
@@ -96,25 +95,27 @@ fun BookItem(book: BookDTO) {
                     overflow = TextOverflow.Ellipsis
                 )
 
-                Spacer(modifier = Modifier.height(8.dp))
+                if (book.author != "") {
+                    Spacer(modifier = Modifier.height(8.dp))
 
-                // Author
-                Text(
-                    text = book.author,
-                    style = AppTypography.paragraph2,
-                    color = AppThemeColors.gray3
-                )
+                    Text(
+                        text = book.author,
+                        style = AppTypography.paragraph2,
+                        color = AppThemeColors.gray3
+                    )
+                }
 
-                Spacer(modifier = Modifier.height(8.dp))
+                if (book.tags.isNotEmpty()) {
+                    Spacer(modifier = Modifier.height(8.dp))
 
-                // Tags
-                Text(
-                    text = book.tags.joinToString(", "),
-                    style = AppTypography.paragraph3,
-                    color = AppThemeColors.gray3,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
+                    Text(
+                        text = book.tags.joinToString("  ") { "#$it" },
+                        style = AppTypography.paragraph3,
+                        color = AppThemeColors.gray3,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
             }
         }
     }

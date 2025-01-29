@@ -35,8 +35,9 @@ class LoginViewModel : ViewModel() {
                     throw IllegalStateException("Refresh Token is null or empty")
                 }
 
-                // 로그인 성공 시 토큰 저장
+                // 로그인 성공 시 토큰과 비밀번호 저장
                 UserPreferences.saveTokens(response.access_token, response.refresh_token)
+                UserPreferences.savePassword(password = password)
 
                 isLoggedIn = true
             } catch (e: HttpException) {

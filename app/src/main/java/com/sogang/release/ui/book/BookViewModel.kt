@@ -3,6 +3,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sogang.release.network.RetrofitClient
+import com.sogang.release.utils.UserPreferences
 import kotlinx.coroutines.launch
 
 
@@ -29,49 +31,18 @@ class BookViewModel : ViewModel() {
 
     private fun fetchBooksData() {
         viewModelScope.launch {
-            // Mock data for books
-            booksData = listOf(
-                BookDTO(
-                    id = "1",
-                    title = "Kotlin ProgrammingKotlin ProgrammingKotlin ProgrammingKotlin ProgrammingKotlin ProgrammingKotlin ProgrammingKotlin ProgrammingKotlin ProgrammingKotlin ProgrammingKotlin ProgrammingKotlin Programming",
-                    availability = "available",
-                    author = "JetBrains",
-                    tags = listOf("Programming", "Kotlin"),
-                    image = "https://example.com/image1.jpg"
-                ),
-                BookDTO(
-                    id = "2",
-                    title = "Compose Essentials",
-                    availability = "rented",
-                    author = "Google",
-                    tags = listOf("Android", "Compose"),
-                    image = "https://example.com/image2.jpg"
-                ),
-                BookDTO(
-                    id = "3",
-                    title = "Clean Code",
-                    availability = "unavailable",
-                    author = "Robert C. Martin",
-                    tags = listOf("Programming", "Best Practices"),
-                    image = "https://example.com/image3.jpg"
-                ),
-                BookDTO(
-                    id = "4",
-                    title = "Introduction to Algorithms",
-                    availability = "available",
-                    author = "Thomas H. Cormen",
-                    tags = listOf("Algorithms", "Data Structures"),
-                    image = "https://example.com/image4.jpg"
-                ),
-                BookDTO(
-                    id = "5",
-                    title = "Artificial Intelligence: A Modern Approach",
-                    availability = "rented",
-                    author = "Stuart Russell, Peter Norvig",
-                    tags = listOf("AI", "Machine Learning"),
-                    image = "https://example.com/image5.jpg"
-                )
-            )
+            try {
+                val accessToken = UserPreferences.getAccessToken()
+                val response = RetrofitClient.bookService.getBook("Bearer $accessToken")
+                booksData = response.books
+                println("Successfully fetched book list!")
+            } catch (e: retrofit2.HttpException) {
+                println("에러1: ${e.response()?.errorBody()?.string()}")
+            } catch (e: java.net.UnknownHostException) {
+                println("에러2")
+            } catch (e: Exception) {
+                println("에러3: ${e.message}")
+            }
         }
     }
 }

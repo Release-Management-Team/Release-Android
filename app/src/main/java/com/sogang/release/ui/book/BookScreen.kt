@@ -19,7 +19,6 @@ import com.sogang.release.ui.theme.AppTypography
 
 @Composable
 fun BookScreen(viewModel: BookViewModel = viewModel()) {
-
     val bookData = viewModel.booksData
 
     Column(
